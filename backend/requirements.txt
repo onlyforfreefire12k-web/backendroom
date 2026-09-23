@@ -1,0 +1,6 @@
+Flask==3.0.3
+python-telegram-bot==21.10
+firebase-admin==6.5.0
+google-api-python-client==2.145.0
+google-auth==2.35.0
+requests==2.32.3

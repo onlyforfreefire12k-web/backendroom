@@ -16,10 +16,13 @@ class Config:
             .strip("'")
         )
 
-        self.FIREBASE_DATABASE_URL = os.environ.get("FIREBASE_DATABASE_URL", "").rstrip("/")
+        self.FIREBASE_DATABASE_URL = os.environ.get(
+            "FIREBASE_DATABASE_URL", ""
+        ).rstrip("/")
+
         if not self.FIREBASE_DATABASE_URL and self.FIREBASE_PROJECT_ID:
             self.FIREBASE_DATABASE_URL = (
-                f"https://{self.FIREBASE_PROJECT_ID}-default-rtdb.firebaseio.com"
+                f"https://{self.FIREBASE_PROJECT_ID}-default-rtdb.asia-southeast1.firebasedatabase.app"
             )
 
         self.FRONTEND_URL = os.environ.get("FRONTEND_URL", "").rstrip("/")
@@ -31,7 +34,9 @@ class Config:
             self.PORT = 10000
 
         try:
-            self.ROOM_TOKEN_TTL = int(os.environ.get("ROOM_TOKEN_TTL", "900")))
+            self.ROOM_TOKEN_TTL = int(
+                os.environ.get("ROOM_TOKEN_TTL", "900")
+            )
         except ValueError:
             self.ROOM_TOKEN_TTL = 900
 
@@ -45,8 +50,11 @@ class Config:
             ("FRONTEND_URL", self.FRONTEND_URL),
             ("ROOM_TOKEN_SECRET", self.ROOM_TOKEN_SECRET),
         ]
+
         missing = [name for name, value in required if not value]
+
         if missing:
             raise EnvironmentError(
-                "Missing required environment variables: " + ", ".join(missing)
+                "Missing required environment variables: "
+                + ", ".join(missing)
             )

@@ -26,7 +26,7 @@ class Config:
         self.ROOM_TOKEN_SECRET = os.environ.get("ROOM_TOKEN_SECRET", "")
 
         try:
-            self.PORT = int(os.environ.get("PORT", "10000")))
+            self.PORT = int(os.environ.get("PORT", "10000"))
         except ValueError:
             self.PORT = 10000
 

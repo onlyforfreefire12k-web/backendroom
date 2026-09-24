@@ -1,0 +1,38 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+#
+# Deploy from a repo whose ROOT is this backend/ directory, or set the
+# service's "Root Directory" to backend/ in the dashboard.
+#
+# All env vars marked sync:false must be added manually in the Render
+# dashboard (Environment tab) — they are secrets and must never be committed.
+
+services:
+  - type: web
+    name: 3d-room-backend
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python live.py
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: YOUTUBE_API_KEY
+        sync: false
+      - key: FIREBASE_PROJECT_ID
+        sync: false
+      - key: FIREBASE_CLIENT_EMAIL
+        sync: false
+      - key: FIREBASE_PRIVATE_KEY
+        sync: false
+      - key: FIREBASE_DATABASE_URL
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: ROOM_TOKEN_TTL_SECONDS
+        value: "3600"
+      - key: ROOM_TOKEN_SECRET
+        generateValue: true
+      - key: PYTHON_VERSION
+        value: 3.12.8
